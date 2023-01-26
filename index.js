@@ -6,6 +6,20 @@ function trataErro(erro){
     throw new Error(chalk.red(erro.code, 'Você fez caquinha'));
 }
 
+// async e await
+async function pegaArquivo(caminhoDoArquivo) {
+    try {
+        const encoding = 'utf-8';
+        const texto = await fs.promises.readFile(caminhoDoArquivo, encoding)
+        console.log(texto);
+    }   catch (erro) {
+        trataErro(erro)
+    }
+
+}
+
+// Promessas com then
+/*
 function pegaArquivo(caminhoDoArquivo) {
     const encoding = 'utf-8';
     fs.promises
@@ -13,16 +27,6 @@ function pegaArquivo(caminhoDoArquivo) {
         .then((texto) => console.log(chalk.green(texto)))
         .catch((erro) => trataErro(erro))
 }
-/*
-function pegaArquivo(caminhoDoArquivo) {
-    const encoding = 'utf-8';
-    fs.readFile(caminhoDoArquivo, encoding, (erro, texto) => {
-        if (erro) {
-            trataErro(erro);
-        }
-        console.log(chalk.green(texto));
-    })
-}
 */
-
-pegaArquivo('./arquivos/texto.md');
+pegaArquivo('./arquivos/texto.md');     //caminho esperado
+pegaArquivo('./arquivos/');     //forço erro

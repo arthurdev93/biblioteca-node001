@@ -32,3 +32,5 @@ function pegaArquivo(caminhoDoArquivo) {
 */
 pegaArquivo('./arquivos/texto.md');     //caminho esperado
 pegaArquivo('./arquivos/');     //forço erro
+
+// \[[^[\]]*?\]

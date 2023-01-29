@@ -1,0 +1,1 @@
+const caminho = process.argv

@@ -11,6 +11,12 @@ function imprimeLista(resultado) {
 async function processaTexto(argumentos) {
     const caminho = argumentos[2];
 
+    try {
+        fs.lstatSync(caminho)
+    } catch (erro) {
+
+    }
+
     if (fs.lstatSync(caminho).isFile()) {
         const resultado = await pegaArquivo(argumentos[2]);
         imprimeLista(resultado);

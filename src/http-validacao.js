@@ -5,17 +5,33 @@ function extraiLinks (arrLinks) {
 async function checaStatus (listaURLs) {
     const arrStatus = await Promise.all(
         listaURLs.map(async (url) => {
-            const response = await fetch(url)
-            return response.status;
+            try {
+                const response = await fetch(url)
+                return response.status;
+            } catch (erro) {
+                return manejaErros(erro);
+            }
         })
     )
     return arrStatus;
 }
 
+function manejaErros (erro) {
+    if (erro.cause.code === 'ENOTFOUND') {
+        return 'Link não encontrado'
+    } else {
+        return 'Ocorreu algum erro'
+    }
+}
+
 export default async function listaValidada (listaDeLinks) {
     const links = extraiLinks(listaDeLinks);
     const status = await checaStatus(links);
-    return status;
+
+    return listaDeLinks.map((objeto, indice) => ({
+        ...objeto,
+        status: status[indice]
+    }))
 }
 
-// [gatinho salsicha](http://gatinhosalsicha.com.br/)
+// 
